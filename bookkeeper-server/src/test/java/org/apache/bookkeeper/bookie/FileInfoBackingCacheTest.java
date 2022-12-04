@@ -59,7 +59,8 @@ public class FileInfoBackingCacheTest {
     final ThreadFactory threadFactory = new ThreadFactoryBuilder()
         .setNameFormat("backing-cache-test-%d").setDaemon(true).build();
     ExecutorService executor;
-
+    
+    @Before
     public FileInfoBackingCacheTest() throws Exception {
         baseDir = File.createTempFile("foo", "bar");
     }

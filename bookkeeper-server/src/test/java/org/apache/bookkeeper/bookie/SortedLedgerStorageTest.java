@@ -66,6 +66,7 @@ public class SortedLedgerStorageTest {
         return Arrays.asList(true, false);
     }
 
+    @Before
     public SortedLedgerStorageTest(boolean elplSetting) {
         conf.setEntryLogSizeLimit(2048);
         conf.setEntryLogPerLedgerEnabled(elplSetting);
@@ -106,7 +107,7 @@ public class SortedLedgerStorageTest {
         ledgerDirsManager = new LedgerDirsManager(conf, conf.getLedgerDirs(),
                 new DiskChecker(conf.getDiskUsageThreshold(), conf.getDiskUsageWarnThreshold()));
         sortedLedgerStorage.initialize(conf, null, ledgerDirsManager, ledgerDirsManager,
-                                       statsProvider.getStatsLogger(BOOKIE_SCOPE), UnpooledByteBufAllocator.DEFAULT);
+                statsProvider.getStatsLogger(BOOKIE_SCOPE), UnpooledByteBufAllocator.DEFAULT);
         sortedLedgerStorage.setCheckpointSource(checkpointSource);
         sortedLedgerStorage.setCheckpointer(checkpointer);
     }

@@ -46,6 +46,8 @@ import org.junit.Test;
  * Test ledger storage.
  */
 public class LedgerStorageTest extends BookKeeperClusterTestCase {
+
+    @Before
     public LedgerStorageTest() {
         super(1);
     }
@@ -91,11 +93,10 @@ public class LedgerStorageTest extends BookKeeperClusterTestCase {
     public void testExplicitLacWriteToJournal(int journalFormatVersionToWrite, int fileInfoFormatVersionToWrite)
             throws Exception {
         restartBookies(c -> {
-                c.setJournalFormatVersionToWrite(journalFormatVersionToWrite);
-                c.setFileInfoFormatVersionToWrite(fileInfoFormatVersionToWrite);
-                return c;
-            });
-
+            c.setJournalFormatVersionToWrite(journalFormatVersionToWrite);
+            c.setFileInfoFormatVersionToWrite(fileInfoFormatVersionToWrite);
+            return c;
+        });
 
         ClientConfiguration confWithExplicitLAC = new ClientConfiguration();
         confWithExplicitLAC.setMetadataServiceUri(zkUtil.getMetadataServiceUri());
@@ -182,10 +183,10 @@ public class LedgerStorageTest extends BookKeeperClusterTestCase {
     public void testExplicitLacWriteToFileInfo(int journalFormatVersionToWrite, int fileInfoFormatVersionToWrite)
             throws Exception {
         restartBookies(c -> {
-                c.setJournalFormatVersionToWrite(journalFormatVersionToWrite);
-                c.setFileInfoFormatVersionToWrite(fileInfoFormatVersionToWrite);
-                return c;
-            });
+            c.setJournalFormatVersionToWrite(journalFormatVersionToWrite);
+            c.setFileInfoFormatVersionToWrite(fileInfoFormatVersionToWrite);
+            return c;
+        });
 
         ClientConfiguration confWithExplicitLAC = new ClientConfiguration();
         confWithExplicitLAC.setMetadataServiceUri(zkUtil.getMetadataServiceUri());
@@ -228,7 +229,7 @@ public class LedgerStorageTest extends BookKeeperClusterTestCase {
         serverByIndex(0).getBookie().getLedgerStorage().flush();
 
         ReadOnlyFileInfo fileInfo = getFileInfo(ledgerId,
-                                                BookieImpl.getCurrentDirectories(confByIndex(0).getLedgerDirs()));
+                BookieImpl.getCurrentDirectories(confByIndex(0).getLedgerDirs()));
         fileInfo.readHeader();
         ByteBuf explicitLacBufReadFromFileInfo = fileInfo.getExplicitLac();
 

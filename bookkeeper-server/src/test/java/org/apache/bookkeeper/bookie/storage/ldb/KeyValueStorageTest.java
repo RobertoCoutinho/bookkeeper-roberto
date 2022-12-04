@@ -36,6 +36,7 @@ import org.apache.bookkeeper.bookie.storage.ldb.KeyValueStorage.CloseableIterato
 import org.apache.bookkeeper.bookie.storage.ldb.KeyValueStorageFactory.DbConfigType;
 import org.apache.bookkeeper.conf.ServerConfiguration;
 import org.apache.commons.io.FileUtils;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -55,6 +56,7 @@ public class KeyValueStorageTest {
         return Arrays.asList(new Object[][] { { KeyValueStorageRocksDB.factory } });
     }
 
+    @Before
     public KeyValueStorageTest(KeyValueStorageFactory storageFactory) {
         this.storageFactory = storageFactory;
         this.configuration = new ServerConfiguration();
